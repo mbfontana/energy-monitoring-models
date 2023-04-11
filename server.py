@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import pickle
 import pandas as pd
 import re
@@ -9,6 +10,27 @@ with open("./random-forest/rf_model.pkl", "rb") as f:
 
 # Create a Flask web server
 app = Flask(__name__)
+CORS(app)
+
+# Define a function to map the index with its appliance name
+def map_appliance(index):
+    match(index):
+        case 1:
+            return "Appliance 1"
+        case 2:
+            return "Appliance 2"
+        case 3:
+            return "Appliance 3"
+        case 4:
+            return "Appliance 4"
+        case 5:
+            return "Appliance 5"
+        case 6:
+            return "Appliance 6"
+        case 7:
+            return "Appliance 7"
+        case 8:
+            return "Appliance 8"
 
 # Define a function to preprocess the input data
 def preprocess_data(data):
@@ -22,9 +44,8 @@ def preprocess_data(data):
 def postprocess_labels(predicted_labels):
     labels_str = str(predicted_labels[0])
     labels_lst = [x == 'True' for x in labels_str.strip('[]').split()]
-    appliances_id = [i+1 for i in range(len(labels_lst)) if labels_lst[i] == True]
+    appliances_id = [map_appliance(i+1) for i in range(len(labels_lst)) if labels_lst[i] == True]
     return appliances_id
-
 
 # Define a route for making predictions with the trained model
 @app.route("/predict", methods=["POST"])
@@ -46,4 +67,4 @@ def predict():
 
 # Start the Flask web server
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=3002, debug=True)
