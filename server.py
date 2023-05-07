@@ -123,8 +123,8 @@ def predict():
     return jsonify(appliance_id)
 
 
-@app.route("/share_predictions", methods=["GET"])
-def share_predictions():
+@app.route("/predictions", methods=["GET"])
+def predictions():
     # Return the list with all connected appliances
     return jsonify(connected_appliances)
 
