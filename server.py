@@ -4,7 +4,7 @@ import pickle
 import pandas as pd
 
 # Load the trained random forest model from a file
-with open("./random-forest/rf_model.pkl", "rb") as f:
+with open("./svm/svm_model.pkl", "rb") as f:
     rf_model = pickle.load(f)
 
 # Create a Flask web server
@@ -50,10 +50,8 @@ def map_appliance(index):
         case 4:
             return "Toaster"
         case 5:
-            return "Notebook"
-        case 6:
             return "Sandwich maker"
-        case 7:
+        case 6:
             return "Airfryer"
 
 # Define a function to preprocess the input data
